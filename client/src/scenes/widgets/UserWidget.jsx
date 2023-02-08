@@ -26,12 +26,16 @@ const UserWidget = ({userId, picturePath}) => {
    const [user, setUser] = useState(null);
 
    const getUser = async () => {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}users/${userId}`, {
-         method: "GET",
-         headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await response.json();
-      setUser(data);
+      try {
+         const response = await fetch(`${import.meta.env.VITE_BASE_URL}users/${userId}`, {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+         });
+         const data = await response.json();
+         setUser(data);
+      } catch (err) {
+         console.log(err);
+      }
    };
 
    useEffect(() => {
